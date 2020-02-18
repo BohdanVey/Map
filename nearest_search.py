@@ -15,8 +15,8 @@ def get_distance(lat1, lng1, lat2, lng2):
     lng2 = radians(lng2)
     dlng = lng2 - lng1
     dlat = lat2 - lat1
-    a = (sin(dlat/2))**2 + cos(lat1) * cos(lat2) * (sin(dlng/2))**2
-    c = 2 * atan2(sqrt(a), sqrt(1-a))
+    a = (sin(dlat / 2)) ** 2 + cos(lat1) * cos(lat2) * (sin(dlng / 2)) ** 2
+    c = 2 * atan2(sqrt(a), sqrt(1 - a))
     distance = R * c
 
     return distance
@@ -144,14 +144,13 @@ def print_map(top_10_nearest):
               'black', 'yellow', 'orange', 'gold', 'white']
     max_dist = top_10_nearest[9][0]
     zooms = 0
-    while 64 * max_dist/400 * (2 ** zooms) < 4000:
+    while 64 * max_dist / 400 * (2 ** zooms) < 4000:
         zooms += 1
     m = folium.Map(location=[lat, lng], zoom_start=zooms)
     layer2 = folium.FeatureGroup(name="Nearest map")
     layer3 = folium.FeatureGroup(name="Capital map")
 
     for nearest in top_10_nearest:
-
         lt, ln = nearest[2], nearest[3]
         layer2.add_child(folium.Marker(location=[lt, ln],
                                        popup=nearest[1],
