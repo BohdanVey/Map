@@ -1,6 +1,5 @@
 import folium
 from geopy.geocoders import Nominatim
-import reverse_geocode
 from math import sin, cos, sqrt, atan2, radians
 
 
@@ -106,9 +105,13 @@ def read_location(src):
     global lat, lng
     lat, lng = [float(x) for x in input('Print a coordinates: ').split()]
     coordinates = str(lat) + ', ' + str(lng)
-    locator = Nominatim(user_agent='myGeocoder')
-    location = locator.reverse(coordinates).raw
-    city, country = location['address']['city'], location['address']['country']
+    city, country = '', ''
+    try:
+        locator = Nominatim(user_agent='myGeocoder')
+        location = locator.reverse(coordinates).raw
+        city, country = location['address']['city'], location['address']['country']
+    except:
+        city, country = 'Text you can`t find', 'Text you can`t find'
     cities2 = set()
     countries = set()
 
